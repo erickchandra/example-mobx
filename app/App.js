@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text, TextInput, TouchableHighlight, StyleSheet } from 'react-native'
-import {observer} from 'mobx-react/native'
+import { inject, observer} from 'mobx-react/native'
 import NewItem from './NewItem'
-import ListStore from './mobx/listStore'
 
+@inject('ListStore')
 @observer
 class TodoList extends Component {
   constructor () {
@@ -12,8 +12,6 @@ class TodoList extends Component {
       text: '',
       showInput: false
     }
-    list = ListStore.list
-    this.store = ListStore
   }
   toggleInput () {
     this.setState({ showInput: !this.state.showInput })
@@ -32,9 +30,13 @@ class TodoList extends Component {
     this.setState({text})
   }
   addItemToList (item) {
-    this.props.navigation.navigate('FirstScreen')
+    this.props.navigation.navigate('HomeScreen')
   }
   render() {
+    const {ListStore} = this.props
+    list = ListStore.list
+    this.store = ListStore
+
     const { showInput } = this.state
     return (
       <View style={{flex:1}}>

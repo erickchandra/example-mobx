@@ -3,23 +3,23 @@ import { AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import App from './app/App';
 import ListStore from './app/mobx/listStore';
+import { Provider } from 'mobx-react/native';
 
 const AppStack = StackNavigator({
-  FirstScreen: {
+  HomeScreen: {
     screen: App,
     navigationOptions: {
-      title: 'Screen 1'
+      title: 'Home Screen'
     }
   }
 });
 
 class ExampleMobx extends Component {
-  renderScene (route, navigator) {
-    return (<AppStack screenProps={{ store: {ListStore} }} />);
-  }
   render () {
     return (
-      <AppStack />
+      <Provider ListStore={ListStore}>
+        <AppStack />
+      </Provider>
     )
   }
 };
